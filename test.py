@@ -29,16 +29,15 @@ for i in range(1, len(t)):
     v[0, i] = v[0, i-1] + a1 * dt
     x[0, i] = x[0, i-1] + v[0, i] * dt
 
-    a2 = (F - 0.5 * A * rho * CD * (v[1, i-1] - w)**2) / m
+    a2 = (F - 0.5 *A * rho * CD * (v[1, i-1] - w)**2) / m
     v[1, i] = v[1, i-1] + a2 * dt
     x[1, i] = x[1, i-1] + v[1, i] * dt
 
-    a3 = (F + fc * np.exp(-(t[i-1]/tc)**2) - fv * v[2, i-1] - 0.5 * A * rho * CD * (v[2, i-1] - w)**2) / m
-    v[2, i] = v[2, i-1] + a3 * dt
+    a3 = (F + fc * np.exp(-(t[i-1]/tc)**2) - fv *v[2, i-1] -0.5 * A * rho * CD * (v[2, i-1] - w)**2) / m
+    v[2, i] =v[2, i-1] + a3 * dt
     x[2, i] = x[2, i-1] + v[2, i] * dt
 
 fig, ax = plt.subplots()
-
 linije = []
 for i in range(3):
     linija, = ax.plot([], [], marker='o')
@@ -55,9 +54,9 @@ def init():
         linija.set_data([], [])
     return linije
 
-def update(frame):
+def update(frejm):
     for i, linija in enumerate(linije):
-        linija.set_data(t[:frame], x[i, :frame])
+        linija.set_data(t[:frejm], x[i, :frejm])
     return linije
 
 ani = animation.FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=1000/60) 
